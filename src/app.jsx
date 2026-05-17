@@ -1,8 +1,12 @@
 import React from 'react'
+import Navbar from './components/Navbar'
+
 
 const App = () => {
   return (
-    <div className='text-indigo-500' >App</div>
+    <main>
+        <Navbar />
+    </main>
   )
 }
 
