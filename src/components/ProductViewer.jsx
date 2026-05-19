@@ -1,6 +1,8 @@
 import React from 'react'
+import useMacbookStore from '../store'
 
 const ProductViewer = () => {
+    const { color, setColor, scale, setScale } = useMacbookStore();
     return (
         <section id='product-viewer'>
             <h2>Take a  closer look</h2>
@@ -8,7 +10,9 @@ const ProductViewer = () => {
                 <p className='info'> MacbookPro 16'in  space Black</p>
                 <div className="flex-center gap-5 mt-5">
                     <div className='color-control'>
-                        <div className="bg-neutral-300">
+                        <div
+                         onClick={() => setColor('#adb5bd')}
+                         className={clsx('bg-neutral-300', color === '#adb5bd' && 'active')}>
                         </div>
                         <div className="bg-neutral-500">
                         </div>
