@@ -20,6 +20,7 @@ const ProductViewer = () => {
 
                 </div>
             </div>
+            <p className='text-white text-4xl'>render canvas</p>
         </section>
     )
 }
