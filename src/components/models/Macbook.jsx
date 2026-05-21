@@ -12,7 +12,7 @@ import React from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Model(props) {
-  const { nodes, materials } = useGLTF('/macbook-transformed.glb')
+  const { nodes, materials } = useGLTF('/models/macbook-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Object_10.geometry} material={materials.PaletteMaterial001} rotation={[Math.PI / 2, 0, 0]} />
@@ -38,4 +38,4 @@ export function Model(props) {
   )
 }
 
-useGLTF.preload('/macbook-transformed.glb')
+useGLTF.preload('/models/macbook-transformed.glb')

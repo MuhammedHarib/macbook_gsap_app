@@ -1,7 +1,7 @@
 
 
 import React from 'react'
-import { navlinks } from "../constants";
+import { navLinks } from "../constants";
 
 const Navbar = () => { // Component name remains Navbar, but file name changes
   return (
@@ -10,7 +10,7 @@ const Navbar = () => { // Component name remains Navbar, but file name changes
          <img src="/logo.svg" alt="apple logo" />
 
          <ul>
-            {navlinks.map(({label}) => (
+            {navLinks.map(({label}) => (
               <li key={label}>
                 <a href={`#${label.toLowerCase()}`}>{label}</a>
               </li> 
