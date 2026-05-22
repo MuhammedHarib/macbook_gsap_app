@@ -8,10 +8,10 @@ import { useGSAP } from "@gsap/react";
 import MacbookModel14 from "../models/Macbook-14";
 import MacbookModel16 from "../models/Macbook-16";
 
-const ANIMATION_DURATION = 1;
-const OFFSET_DISTANCE = 5;
+const ANIMATION_DURATION = 0.8;
+const OFFSET_DISTANCE = 15; // Increased to ensure it moves totally out of view
 
-const fadeMeshes = (group, opacity) => {
+const fadeMeshes = (group, opacity, delay = 0) => {
   if (!group) return;
 
   group.traverse((child) => {
@@ -20,7 +20,8 @@ const fadeMeshes = (group, opacity) => {
 
       gsap.to(child.material, {
         opacity,
-        duration: ANIMATION_DURATION,
+        duration: ANIMATION_DURATION * 0.5,
+        delay: delay,
       });
     }
   });
@@ -52,8 +53,10 @@ const ModelSwitcher = ({ scale, isMobile }) => {
 
     if (!small || !large) return;
 
-    // Skip running GSAP transitions on the very first mount
+    // Setup initial visibility/position without animation on first mount
     if (isInitialRender.current) {
+      large.visible = showLargeMacbook;
+      small.visible = !showLargeMacbook;
       isInitialRender.current = false;
       return;
     }
@@ -61,12 +64,17 @@ const ModelSwitcher = ({ scale, isMobile }) => {
     if (showLargeMacbook) {
       // show large
       large.visible = true;
+      
+      // MacBook 16 selected: comes in from the RIGHT (+X)
+      gsap.set(large.position, { x: OFFSET_DISTANCE });
 
       moveGroup(large, 0);
+      // MacBook 14 leaves to the LEFT (-X)
       moveGroup(small, -OFFSET_DISTANCE);
 
-      fadeMeshes(large, 1);
-      fadeMeshes(small, 0);
+      fadeMeshes(large, 1, 0); 
+      // Fade out ONLY after it has moved out of view
+      fadeMeshes(small, 0, ANIMATION_DURATION * 0.8);
 
       gsap.delayedCall(ANIMATION_DURATION, () => {
         small.visible = false;
@@ -74,12 +82,17 @@ const ModelSwitcher = ({ scale, isMobile }) => {
     } else {
       // show small
       small.visible = true;
+      
+      // MacBook 14 selected: comes in from the LEFT (-X)
+      gsap.set(small.position, { x: -OFFSET_DISTANCE });
 
       moveGroup(small, 0);
+      // MacBook 16 leaves to the RIGHT (+X)
       moveGroup(large, OFFSET_DISTANCE);
 
-      fadeMeshes(small, 1);
-      fadeMeshes(large, 0);
+      fadeMeshes(small, 1, 0);
+      // Fade out ONLY after it has moved out of view
+      fadeMeshes(large, 0, ANIMATION_DURATION * 0.8);
 
       gsap.delayedCall(ANIMATION_DURATION, () => {
         large.visible = false;
@@ -105,8 +118,7 @@ const ModelSwitcher = ({ scale, isMobile }) => {
       {/* 16-inch model */}
       <group 
         ref={largeMacbookRef}
-        visible={showLargeMacbook}
-        position={[showLargeMacbook ? 0 : OFFSET_DISTANCE, 0, 0]}
+        position={[0, 0, 0]}
       >
         <MacbookModel16
           scale={isMobile ? 0.05 : 0.08}
@@ -116,8 +128,7 @@ const ModelSwitcher = ({ scale, isMobile }) => {
       {/* 14-inch model */}
       <group 
         ref={smallMacbookRef}
-        visible={!showLargeMacbook}
-        position={!showLargeMacbook ? [0, 0, 0] : [-OFFSET_DISTANCE, 0, 0]}
+        position={[0, 0, 0]}
       >
         <MacbookModel14
           scale={isMobile ? 0.03 : 0.06}
