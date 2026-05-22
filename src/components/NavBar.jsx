@@ -1,7 +1,5 @@
-
-
 import React from 'react'
-import { navLinks } from "../constants";
+import { navLinks } from '../constants'
 
 const Navbar = () => { // Component name remains Navbar, but file name changes
   return (
