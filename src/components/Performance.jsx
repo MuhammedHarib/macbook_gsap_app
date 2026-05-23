@@ -69,7 +69,7 @@ const Performance = () => {
                 scale: 1,
                 zIndex: 1, // laptop BELOW screens
             })
-
+            
             // =========================
             // SHORT BLOOM ANIMATION
             // =========================
@@ -96,8 +96,8 @@ const Performance = () => {
             tl.to(
                 p1,
                 {
-                    left: '8%',
-                    top: '10%',
+                    left: '5%',
+                    top: '22%',
                     scale: 0.95,
                     ease: 'power2.out',
                 },
@@ -108,8 +108,8 @@ const Performance = () => {
             tl.to(
                 p2,
                 {
-                    left: '78%',
-                    top: '8%',
+                    left: '75%',
+                    top: '20%',
                     scale: 0.95,
                     ease: 'power2.out',
                 },
@@ -184,7 +184,7 @@ const Performance = () => {
 
     return (
         <section id="performance" ref={sectionRef}>
-            <h2>
+            <h2 className='relative z-50 mb-20 lg:mb-32'>
                 Next-level graphics
                 <br />
                 performance. Game on.
