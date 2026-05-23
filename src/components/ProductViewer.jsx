@@ -3,7 +3,6 @@ import useMacbookStore from '../store'
 import clsx from 'clsx';
 
 import { Canvas } from '@react-three/fiber';
-import { materialColor } from 'three/tsl';
 import { useFrame } from '@react-three/fiber';  
 import MacbookModel14 from './models/Macbook-14';
 import StudioLights from './three/StudioLights';
