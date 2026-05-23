@@ -7,27 +7,40 @@ import gsap from 'gsap';
 
 const Showcase = () => {
     const isTablet = useMediaQuery({ query: '(max-width: 1024px)' });
-    useGSAP((context) => {
-        if (!isTablet) {
-            const timeline = gsap.timeline({
-                scrollTrigger: {
-                    trigger: '#showcase',
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: 1, // Changed to 1 for a smoother "catch-up" effect
-                    pin: true,
-                }
+   useGSAP(() => {
 
+    if (!isTablet) {
 
-            })
-              timeline.to('.mask img',{
-                scale: 1.1, // Increased scale for a more visible "transmission" effect
-                ease: 'none' // Linear ease is better for scrubbed animations
-            }).to('.content ',{ opacity :1, y:0,ease:'power1.in'})
+        const timeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: '#showcase',
+                start: 'top top',
 
+                // SHORTER SCROLL DISTANCE
+                end: '+=120%',
 
-        }
-    }, [isTablet])
+                scrub: 0.5,
+                pin: true,
+                anticipatePin: 1,
+            }
+        })
+
+        // MASK SCALE
+        timeline.to('.mask img', {
+            scale: 1.15,
+            ease: 'none'
+        })
+
+        // CONTENT APPEARS BEFORE FIRST ENDS
+        .to('.content', {
+            opacity: 1,
+            y: 0,
+            ease: 'power2.out',
+            duration: 0.6
+        }, '-=0.35') // overlap animation
+    }
+
+}, [isTablet])
     return (
         <section id='showcase'>
             <div className='media'>

@@ -9,7 +9,7 @@ import Highlights from './components/Highlights'
 import Footer from './components/Footer'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/all'
-import { Features } from 'tailwindcss'
+// import { Features } from 'tailwindcss'
 gsap.registerPlugin(ScrollTrigger)
 
 
